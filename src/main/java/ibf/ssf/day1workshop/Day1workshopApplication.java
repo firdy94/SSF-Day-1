@@ -22,7 +22,7 @@ public class Day1workshopApplication {
 		if (cliOptions.containsOption("port")) {
 			port = cliOptions.getOptionValues("port").get(0);
 			if ((port == null || port.isEmpty())) {
-				port= System.getenv("PORT")
+				port = System.getenv("PORT");
 				if (port == null) {
 					port = DEFAULT_PORT;
 				}
