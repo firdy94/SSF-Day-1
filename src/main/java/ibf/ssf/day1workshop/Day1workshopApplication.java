@@ -11,7 +11,7 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @SpringBootApplication
 public class Day1workshopApplication {
-	private static final Logger logger = LoggerFactory.getLogger(Workshop11Application.class);
+	private static final Logger logger = LoggerFactory.getLogger(Day1workshopApplication.class);
 	private static final String DEFAULT_PORT = "3000";
 
 	public static void main(String[] args) {
