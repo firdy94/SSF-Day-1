@@ -11,18 +11,31 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @SpringBootApplication
 public class Day1workshopApplication {
+	private static final Logger logger = LoggerFactory.getLogger(Workshop11Application.class);
+	private static final String DEFAULT_PORT = "3000";
 
 	public static void main(String[] args) {
+		logger.info("Workshop 11");
 		SpringApplication myApp = new SpringApplication(Day1workshopApplication.class);
 		// SpringApplication.run(Day1workshopApplication.class, args);
-		String port = "3000";
+		String port = "null";
 		ApplicationArguments cliOptions = new DefaultApplicationArguments(args);
 		if (cliOptions.containsOption("port")) {
 			port = cliOptions.getOptionValues("port").get(0);
-		}
-		myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
+			logger.info("port number input >>" + port);
+			if (port == null) {
+				port = System.getenv("PORT");
+				if (port == null) {
+					port = DEFAULT_PORT;
+					myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
 
-		// System.out.printf("Application started on port %s\n", port);
+				}
+			} else {
+				myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
+			}
+		}
+		// myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
+		System.out.printf("Application started on port %s\n", port);
 		myApp.run(args);
 	}
 
