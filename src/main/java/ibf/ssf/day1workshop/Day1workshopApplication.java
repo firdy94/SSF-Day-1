@@ -2,6 +2,7 @@ package ibf.ssf.day1workshop;
 
 import java.util.Collections;
 import java.util.Properties;
+import java.util.List;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.DefaultApplicationArguments;
@@ -17,20 +18,18 @@ public class Day1workshopApplication {
 	public static void main(String[] args) {
 		SpringApplication myApp = new SpringApplication(Day1workshopApplication.class);
 		// SpringApplication.run(Day1workshopApplication.class, args);
-		String port = "null";
 		ApplicationArguments cliOptions = new DefaultApplicationArguments(args);
-		if (cliOptions.containsOption("port")) {
-			port = cliOptions.getOptionValues("port").get(0);
-			if ((port == null || port.isEmpty())) {
-				port = System.getenv("PORT");
-				if (port == null) {
-					port = DEFAULT_PORT;
-				}
+		String port = null;
+		List<String> inputPort = cliOptions.getOptionValues("port");
+		if ((inputPort == null || inputPort.get(0) == null)) {
+			port = System.getenv("PORT");
+			if (port == null) {
+				port = DEFAULT_PORT;
 			}
-			myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
+		} else {
+			port = inputPort.get(0);
 		}
-
-		// myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
+		myApp.setDefaultProperties(Collections.singletonMap("server.port", port));
 		System.out.printf("Application started on port %s\n", port);
 		myApp.run(args);
 
